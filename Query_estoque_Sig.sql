@@ -2,6 +2,7 @@
     m.data_movimento,
     pe.nome AS empresa,
     g.nome AS grupo,
+    p.cod_produto,
     p.nome AS produto,
     SUM(m.valor) AS valor,
     SUM(m.quantidade) AS quantidade,
@@ -36,6 +37,7 @@ WHERE
 GROUP BY
     m.data_movimento,
     pe.nome,
+    p.cod_produto,
     p.nome,
     g.nome,
     m.preco_medio,
