@@ -12,7 +12,7 @@ WITH precos_medios AS (
     SUM(CASE WHEN tipo_lancamento = 'V' THEN valor ELSE -valor END) AS total_valor_vendas,
     SUM(tributos_sobre_vendas) AS total_tributos_sobre_vendas -- Para as devoluções, os tributos sobre vendas já estão negativos
   FROM
-    relatorios.movimentacao_produtos_com_lucro_bruto_medio(2, null, 0, null, '01/10/2024', current_date)
+    relatorios.movimentacao_produtos_com_lucro_bruto_medio(0, null, 0, null, '01/01/2023', current_date)
   WHERE
     tipo_lancamento IN ('V', 'X')
   GROUP BY
@@ -78,7 +78,7 @@ FROM
     WHERE
       (COALESCE(0, lp.cod_empresa) = 0) AND
       (COALESCE(0, lf.cod_pessoa) = 0) AND
-      lp.data_movimento BETWEEN '01/10/2024' AND current_date AND
+      lp.data_movimento BETWEEN '01/01/2023' AND current_date AND
       lp.situacao = 2 AND
       NOT lp.cancelado AND
       lp.tipo_lancamento IN ('V', 'X')

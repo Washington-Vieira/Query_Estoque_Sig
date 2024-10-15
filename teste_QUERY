@@ -6,7 +6,9 @@ SELECT
     SUM(valor) AS valor,
     SUM(quantidade) AS quantidade,
     sum(m.tributos_sobre_vendas) AS tributos_sobre_vendas,
-    preco_medio
+    preco_medio,
+    COALESCE(saldo.quantidade, 0) AS qtd_saldo,
+    COALESCE(saldo.valor, 0) AS custo_medio
 FROM
     relatorios.movimentacao_produtos_com_lucro_bruto_medio(
         47058, 
@@ -14,7 +16,7 @@ FROM
         2, 
         0, 
         '01/01/2024',  -- Data inicial
-        current_date   -- Data final como data atual
+        '30/09/2024'   -- Data final como data atual
     ) m
 INNER JOIN produtos p ON (m.cod_produto = p.cod_produto)
 INNER JOIN grupos g ON (p.cod_grupo = g.cod_grupo)
@@ -28,4 +30,6 @@ GROUP BY
     pe.nome,
     p.nome,
     g.nome,
-    preco_medio
+    preco_medio,
+    saldo.valor,
+    saldo.quantidade
