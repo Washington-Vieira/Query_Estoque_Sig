@@ -16,16 +16,16 @@ FROM
         0, 
         2, 
         0, 
-        '01/09/2024',  -- Data inicial
-        '31/09/2024'   -- Data final como data atual
+        '01/01/2023',  -- Data inicial
+        current_date   -- Data final como data atual
     ) m  
 INNER JOIN produtos p ON (m.cod_produto = p.cod_produto)
 INNER JOIN grupos g ON (p.cod_grupo = g.cod_grupo)
 INNER JOIN pessoas pe ON (m.cod_empresa = pe.cod_pessoa)
 LEFT JOIN relatorios.saldos_produtos_com_preco_medio(
-        47058,
         0,
-        2,
+        0,
+        '70, 90',
         0,  -- saldo para todos os depósitos
         current_date  -- Data de referência para o saldo
     ) AS saldo
@@ -33,7 +33,7 @@ LEFT JOIN relatorios.saldos_produtos_com_preco_medio(
 WHERE
     m.tipo_lancamento IN ('V')
     AND p.tipo IN ('U','C','M','D','P')
-    AND m.data_movimento BETWEEN '01/09/2024' AND '31/09/2024'
+    AND m.data_movimento BETWEEN '01/01/2023' AND current_date
 GROUP BY
     m.data_movimento,
     pe.nome,
